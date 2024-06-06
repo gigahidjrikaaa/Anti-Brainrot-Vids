@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Videos</title>
+</head>
+<body>
+    <h1>YouTube Videos</h1>
+    <ul>
+        {% for video in videos %}
+        <li>
+            <a href="{{ video.url }}" target="_blank">{{ video.title }}</a><br>
+            {{ video.description }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
