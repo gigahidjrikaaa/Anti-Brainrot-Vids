@@ -8,6 +8,10 @@ def get_svd_recommendations(user_id, k=50):
     # Get the ratings data
     ratings = Rating.objects.all().values('user_id', 'video_id', 'rating')
     ratings_df = pd.DataFrame(ratings)
+    
+    # Debug: Print the DataFrame to ensure it contains the correct data
+    print("Ratings DataFrame:")
+    print(ratings_df.head())
 
     # Ensure the DataFrame contains the correct columns
     if 'user_id' not in ratings_df.columns or 'video_id' not in ratings_df.columns or 'rating' not in ratings_df.columns:
