@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { login } from '../services/api';
 
-const Login = ({ setToken }) => {
-    const [username, setUsername] = useState('');
+const Login = ({ setToken, setUsername }) => {
+    const [username, setUsernameInput] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
         try {
             const data = await login(username, password);
             setToken(data.access_token);
+            setUsername(data.username);
             alert('Logged in successfully!');
         } catch (err) {
             console.error(err);
@@ -22,7 +23,7 @@ const Login = ({ setToken }) => {
             <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUsernameInput(e.target.value)}
                 placeholder="Username"
             />
             <input

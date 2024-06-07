@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import Preferences from './components/Preferences';
@@ -7,6 +7,7 @@ import Recommendations from './components/Recommendations';
 
 function App() {
     const [token, setToken] = useState('');
+    const [username, setUsername] = useState('');
 
     return (
         <Router>
@@ -16,19 +17,14 @@ function App() {
                     <Link to="/login">Login</Link>
                     <Link to="/preferences">Preferences</Link>
                     <Link to="/recommendations">Recommendations</Link>
+                    {username && <span>Welcome, {username}!</span>}
                 </nav>
-                <Switch>
-                    <Route path="/register" component={Register} />
-                    <Route path="/login">
-                        <Login setToken={setToken} />
-                    </Route>
-                    <Route path="/preferences">
-                        <Preferences token={token} />
-                    </Route>
-                    <Route path="/recommendations">
-                        <Recommendations token={token} />
-                    </Route>
-                </Switch>
+                <Routes>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login setToken={setToken} setUsername={setUsername} />} />
+                    <Route path="/preferences" element={<Preferences token={token} />} />
+                    <Route path="/recommendations" element={<Recommendations token={token} />} />
+                </Routes>
             </div>
         </Router>
     );
