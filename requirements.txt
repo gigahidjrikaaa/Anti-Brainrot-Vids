@@ -1,1 +1,5 @@
-django
+Flask 
+Flask-SQLAlchemy 
+Flask-Bcrypt 
+Flask-Login
+Flask-JWT-Extended
