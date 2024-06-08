@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Preferences from './components/Preferences';
 import Recommendations from './components/Recommendations';
+import './index.css'; // Import the Tailwind CSS file
 
 function App() {
     const [token, setToken] = useState('');
@@ -11,20 +12,26 @@ function App() {
 
     return (
         <Router>
-            <div>
-                <nav>
-                    <Link to="/register">Register</Link>
-                    <Link to="/login">Login</Link>
-                    <Link to="/preferences">Preferences</Link>
-                    <Link to="/recommendations">Recommendations</Link>
-                    {username && <span>Welcome, {username}!</span>}
+            <div className="min-h-screen bg-background-dark text-white">
+                <nav className="bg-dark-blue p-4 shadow-lg">
+                    <div className="container mx-auto flex justify-between items-center">
+                        <div>
+                            <Link to="/register" className="mr-4 hover:text-futuristic-blue">Register</Link>
+                            <Link to="/login" className="mr-4 hover:text-futuristic-blue">Login</Link>
+                            <Link to="/preferences" className="mr-4 hover:text-futuristic-blue">Preferences</Link>
+                            <Link to="/recommendations" className="hover:text-futuristic-blue">Recommendations</Link>
+                        </div>
+                        {username && <div>Welcome, {username}!</div>}
+                    </div>
                 </nav>
-                <Routes>
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login setToken={setToken} setUsername={setUsername} />} />
-                    <Route path="/preferences" element={<Preferences token={token} />} />
-                    <Route path="/recommendations" element={<Recommendations token={token} />} />
-                </Routes>
+                <div className="container mx-auto p-4">
+                    <Routes>
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login setToken={setToken} setUsername={setUsername} />} />
+                        <Route path="/preferences" element={<Preferences token={token} />} />
+                        <Route path="/recommendations" element={<Recommendations token={token} />} />
+                    </Routes>
+                </div>
             </div>
         </Router>
     );

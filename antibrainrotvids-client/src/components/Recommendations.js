@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getRecommendations } from '../services/api';
 
 const Recommendations = ({ token }) => {
@@ -11,7 +11,7 @@ const Recommendations = ({ token }) => {
                 setVideos(data);
             } catch (err) {
                 console.error(err);
-                alert('Fetching recommendations failed');
+                alert('Failed to fetch recommendations');
             }
         };
 
@@ -19,13 +19,14 @@ const Recommendations = ({ token }) => {
     }, [token]);
 
     return (
-        <div>
-            <h2>Recommended Videos</h2>
+        <div className="max-w-4xl mx-auto bg-background-light p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl mb-4">Recommendations</h2>
             <ul>
-                {videos.map(video => (
-                    <li key={video.id}>
-                        <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
-                        <p>{video.description}</p>
+                {videos.map((video, index) => (
+                    <li key={index} className="mb-4">
+                        <a href={video.url} target="_blank" rel="noopener noreferrer" className="text-futuristic-blue hover:underline">
+                            {video.title}
+                        </a>
                     </li>
                 ))}
             </ul>
