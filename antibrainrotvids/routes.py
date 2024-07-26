@@ -36,16 +36,24 @@ def login():
 
 @auth_bp.route('/preferences', methods=['POST'])
 @jwt_required()
-def set_preferences():
+def save_preferences():
     user_id = get_jwt_identity()
     data = request.get_json()
     preferences = data.get('preferences')
     
     user = User.query.get(user_id)
-    user.preferences = preferences
-    db.session.commit()
-    
-    return jsonify({"msg": "Preferences saved successfully"}), 200
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+    try:
+        user.preferences = preferences
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Failed to save preferences", "error": str(e)}), 500
+
+    return jsonify({"msg": "Preferences updated successfully"}), 200
+
 
 @video_bp.route('/recommend', methods=['GET'])
 @jwt_required()
